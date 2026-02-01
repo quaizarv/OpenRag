@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+
+# Large data files (download separately)
+*.pkl
+*.tar.bz2
+*.tar.bz2.*
+*.json.gz
+multihop_rag/dataset/corpus.json
+crag/data/crag_task_3_dev_v4/
+crag/data/*.tar.bz2*
+crag/data/*.jsonl
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp
+/tmp/
+*.tmp
+
+# API keys
+.env
+
+# LFS (don't use)
+.gitattributes
