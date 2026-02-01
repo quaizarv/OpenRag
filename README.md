@@ -4,7 +4,7 @@
 [![Python](https://img.shields.io/badge/python-3.10+-blue)](https://python.org)
 [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 
-A complete RAG system that achieves **74.3% Recall@10** on MultiHop-RAG, surpassing RAPTOR's ~70%. This repository includes:
+A complete RAG system that achieves **72.89% Recall@10** on MultiHop-RAG, surpassing RAPTOR's ~70%. This repository includes:
 
 - 🔧 **Full RAG Implementation** (`ultimate_rag/`) - RAPTOR + Graph + HyDE + BM25 + Neural Reranking
 - 📊 **Benchmark Suite** (`adapters/`, `scripts/`) - Evaluation harness for MultiHop-RAG, CRAG
@@ -61,7 +61,7 @@ python scripts/run_multihop_eval.py
 
 | Benchmark | Queries | Our Result | RAPTOR | Dense | BM25 |
 |-----------|---------|------------|--------|-------|------|
-| **MultiHop-RAG** | 2,556 | **74.3%** | ~70% | ~55% | ~45% |
+| **MultiHop-RAG** | 2,556 | **72.89%** | ~70% | ~55% | ~45% |
 | CRAG | 2,706 | TBD | — | — | — |
 
 ### Ablation Study

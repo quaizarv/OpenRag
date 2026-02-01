@@ -2,13 +2,13 @@
 
 ## One-Paragraph Summary
 
-We built a RAG system that achieves **74.3% Recall@10** on MultiHop-RAG, surpassing RAPTOR's ~70%. Our key insight: **reranking matters more than retrieval strategy selection**. By combining RAPTOR's hierarchical tree with Cohere's neural reranker (`rerank-english-v3.0`), BM25 hybrid search, and query decomposition, we improved recall by 19 percentage points over vanilla dense retrieval. The single biggest contributor was Cohere reranking (+9.3%), suggesting that for multi-hop QA, precision-focused reranking is more impactful than recall-focused retrieval diversity.
+We built a RAG system that achieves **72.89% Recall@10** on MultiHop-RAG, surpassing RAPTOR's ~70%. Our key insight: **reranking matters more than retrieval strategy selection**. By combining RAPTOR's hierarchical tree with Cohere's neural reranker (`rerank-english-v3.0`), BM25 hybrid search, and query decomposition, we improved recall by 19 percentage points over vanilla dense retrieval. The single biggest contributor was Cohere reranking (+9.3%), suggesting that for multi-hop QA, precision-focused reranking is more impactful than recall-focused retrieval diversity.
 
 ## Key Numbers
 
 | Metric | Value |
 |--------|-------|
-| **Recall@10** | 74.3% |
+| **Recall@10** | 72.89% |
 | **Improvement over RAPTOR** | +4% |
 | **Improvement over dense** | +19% |
 | **Latency** | ~1s/query |

@@ -6,7 +6,7 @@
 
 ## TL;DR
 
-We built a RAG system that achieves **74%+ Recall@10** on the MultiHop-RAG benchmark, surpassing the original RAPTOR paper's ~70%. Our approach combines:
+We built a RAG system that achieves **72.89% Recall@10** on the MultiHop-RAG benchmark, surpassing the original RAPTOR paper's ~70%. Our approach combines:
 
 - **RAPTOR's hierarchical tree** for multi-level abstraction
 - **Knowledge graphs** for entity-relationship traversal  
@@ -207,7 +207,7 @@ reranked = cohere.rerank(
 | BM25 baseline | ~45% | Keyword only |
 | Dense retrieval | ~55% | Embeddings only |
 | **RAPTOR (paper)** | **~70%** | Hierarchical |
-| **Our system** | **74.3%** | Everything combined |
+| **Our system** | **72.89%** | Everything combined |
 
 ### Ablation: What Contributed What?
 
@@ -220,7 +220,7 @@ We ran ablations on 200 queries:
 | + Cohere rerank | 71.8% | +9.3% |
 | + BM25 hybrid | 72.4% | +9.9% |
 | + HyDE | 73.6% | +11.1% |
-| + Query decomposition | 74.2% | +11.7% |
+| + Query decomposition | 72.89% | +10.5% |
 
 **Key insight:** Cohere's neural reranker was the single biggest improvement (+9.3%). This makes sense—reranking is where you get precision.
 

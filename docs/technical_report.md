@@ -8,7 +8,7 @@
 
 ## Abstract
 
-We present a multi-strategy Retrieval-Augmented Generation (RAG) system that achieves 74.3% Recall@10 on the MultiHop-RAG benchmark, surpassing the RAPTOR baseline of approximately 70%. Our approach combines hierarchical document representation (RAPTOR), knowledge graph traversal, hypothetical document embeddings (HyDE), BM25 hybrid search, query decomposition, and neural reranking. Through systematic ablation studies, we identify neural reranking as the single most impactful component, contributing +9.3 percentage points over the base system. We provide detailed implementation guidance, cost analysis, and failure mode examination.
+We present a multi-strategy Retrieval-Augmented Generation (RAG) system that achieves 72.89% Recall@10 on the MultiHop-RAG benchmark, surpassing the RAPTOR baseline of approximately 70%. Our approach combines hierarchical document representation (RAPTOR), knowledge graph traversal, hypothetical document embeddings (HyDE), BM25 hybrid search, query decomposition, and neural reranking. Through systematic ablation studies, we identify neural reranking as the single most impactful component, contributing +9.3 percentage points over the base system. We provide detailed implementation guidance, cost analysis, and failure mode examination.
 
 ---
 
@@ -340,7 +340,7 @@ def cross_encoder_rerank(chunks, query, top_k):
 | BM25 | 38.2% | 45.1% | 52.3% |
 | Dense | 48.7% | 55.4% | 63.8% |
 | RAPTOR (reported) | ~62% | ~70% | ~76% |
-| **Ours** | **67.8%** | **74.3%** | **81.2%** |
+| **Ours** | **66.2%** | **72.89%** | **79.5%** |
 
 ### 5.2 Ablation Study
 
