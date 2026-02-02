@@ -5,7 +5,7 @@ This folder contains documentation for the RAG Benchmarking project.
 ## Contents
 
 ### [Blog Post](./blog_post.md)
-A practitioner-friendly writeup explaining our approach to achieving 74%+ Recall@10 on MultiHop-RAG. Covers:
+A practitioner-friendly writeup explaining our approach to achieving 72.89% Recall@10 on MultiHop-RAG. Covers:
 - Problem motivation
 - System architecture
 - Component deep dives
@@ -29,7 +29,7 @@ A detailed technical report with:
 
 | Benchmark | Queries | Our Result | SOTA |
 |-----------|---------|------------|------|
-| MultiHop-RAG | 2,556 | 74.3% Recall@10 | ~70% |
+| MultiHop-RAG | 2,556 | 72.89% Recall@10 | ~70% |
 | CRAG | 2,706 | (running) | TBD |
 
 ## Key Findings

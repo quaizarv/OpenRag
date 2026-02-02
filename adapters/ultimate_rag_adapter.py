@@ -117,6 +117,55 @@ class UltimateRAGAdapter:
         resp.raise_for_status()
         return resp.json()
 
+    def ingest_batch(
+        self,
+        documents: List[Dict[str, Any]],
+        tree_name: str = "default",
+        build_hierarchy: bool = False,
+        hierarchy_num_layers: int = 5,
+        hierarchy_target_top_nodes: int = 50,
+    ) -> Dict[str, Any]:
+        """
+        Ingest a batch of documents into the RAG system.
+        
+        Args:
+            documents: List of documents with 'content' and optional 'metadata'
+            tree_name: Name of the tree to ingest into
+            build_hierarchy: Whether to build RAPTOR hierarchy
+            hierarchy_num_layers: Max tree layers
+            hierarchy_target_top_nodes: Target top layer size
+            
+        Returns:
+            Ingestion result with node counts
+        """
+        # Prepare documents
+        prepared_docs = []
+        for doc in documents:
+            content = doc.get("content", doc.get("text", doc.get("body", "")))
+            metadata = doc.get("metadata", {})
+            prepared_docs.append({
+                "content": content,
+                "metadata": metadata,
+            })
+        
+        payload = {
+            "tree": tree_name,
+            "documents": prepared_docs,
+            "build_hierarchy": build_hierarchy,
+        }
+        
+        if build_hierarchy:
+            payload["hierarchy_num_layers"] = hierarchy_num_layers
+            payload["hierarchy_target_top_nodes"] = hierarchy_target_top_nodes
+        
+        resp = self._session.post(
+            f"{self.api_url}/ingest/batch",
+            json=payload,
+            timeout=3600,  # Long timeout for hierarchy building
+        )
+        resp.raise_for_status()
+        return resp.json()
+
     def ingest_benchmark_corpus(
         self,
         documents: List[Dict[str, Any]],
@@ -348,6 +397,7 @@ class UltimateRAGAdapter:
         mode: Optional[str] = None,
         filters: Optional[Dict[str, Any]] = None,
         include_graph: bool = True,
+        tree_name: Optional[str] = None,
     ) -> Tuple[List[RetrievalResult], Dict[str, Any]]:
         """
         Retrieve relevant chunks for a query.
@@ -358,6 +408,7 @@ class UltimateRAGAdapter:
             mode: Retrieval mode (standard, fast, thorough, incident)
             filters: Optional filters
             include_graph: Whether to include graph context
+            tree_name: Optional tree name to query (default: all trees)
 
         Returns:
             Tuple of (list of RetrievalResult, metadata dict)
@@ -371,6 +422,9 @@ class UltimateRAGAdapter:
             "filters": filters,
             "include_graph": include_graph,
         }
+        
+        if tree_name:
+            payload["tree_name"] = tree_name
 
         resp = self._session.post(
             f"{self.api_url}/query",

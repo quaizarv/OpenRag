@@ -354,8 +354,8 @@ Conducted on 200-query sample (queries 1-200):
 | + Cohere rerank (replace cross-enc) | 71.8% | +16.6% |
 | + BM25 hybrid | 72.4% | +17.2% |
 | + HyDE | 73.6% | +18.4% |
-| + Query decomposition | 74.2% | +19.0% |
-| + Graph traversal | 74.3% | +19.1% |
+| + Query decomposition | 72.5% | +17.3% |
+| + Graph traversal | 72.89% | +17.7% |
 
 **Key Finding:** Cohere reranking provides the largest single improvement (+9.3% over cross-encoder). Graph traversal provides minimal additional benefit when other strategies are present.
 
@@ -447,7 +447,7 @@ After adding 4-5 strategies, additional strategies provide marginal gains:
 
 ```
 Strategies: 1 → 2 → 3 → 4 → 5 → 6 → 7
-Recall:    55% → 62% → 68% → 72% → 73% → 74% → 74%
+Recall:    55% → 62% → 68% → 71% → 72% → 72.5% → 72.89%
 ```
 
 This suggests a ceiling effect—additional strategies retrieve the same documents.
@@ -488,7 +488,7 @@ We expected graph traversal to significantly help multi-hop queries. In practice
 
 ## 9. Conclusion
 
-We demonstrated that combining multiple retrieval strategies with neural reranking achieves state-of-the-art performance on MultiHop-RAG (74.3% vs. 70% for RAPTOR). Key findings:
+We demonstrated that combining multiple retrieval strategies with neural reranking achieves state-of-the-art performance on MultiHop-RAG (72.89% vs. 70% for RAPTOR). Key findings:
 
 1. **Reranking is crucial:** +9.3% from Cohere reranker alone
 2. **Hybrid search matters:** BM25 catches what embeddings miss

@@ -1,6 +1,6 @@
 # RAG Benchmarking: Multi-Strategy Retrieval for Multi-Hop QA
 
-[![Recall@10](https://img.shields.io/badge/MultiHop--RAG-74.3%25-brightgreen)](./docs/technical_report.md)
+[![Recall@10](https://img.shields.io/badge/MultiHop--RAG-72.89%25-brightgreen)](./docs/technical_report.md)
 [![Python](https://img.shields.io/badge/python-3.10+-blue)](https://python.org)
 [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 
@@ -72,7 +72,7 @@ python scripts/run_multihop_eval.py
 | + RAPTOR hierarchy | 62.5% | +7.3% |
 | + Cohere reranking | 71.8% | +16.6% |
 | + BM25 hybrid | 72.4% | +17.2% |
-| + HyDE + Query decomp | 74.3% | +19.1% |
+| + HyDE + Query decomp | 72.89% | +17.7% |
 
 **Key insight:** Cohere's neural reranker alone adds +9.3 percentage points.
 
