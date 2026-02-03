@@ -218,10 +218,27 @@ curl -X POST http://localhost:8000/persist/load \
 
 ```bash
 OPENAI_API_KEY=sk-...          # Required for embeddings
-COHERE_API_KEY=...             # Recommended for reranking
+COHERE_API_KEY=...             # Recommended for reranking (see privacy note below)
 RETRIEVAL_MODE=standard        # fast|standard|thorough
 DEFAULT_TOP_K=10               # Number of results
 ```
+
+### Privacy Notice: Cohere Reranker
+
+This system uses [Cohere's rerank API](https://cohere.com/rerank) for neural reranking, which provides the best benchmark results (+9.3% improvement). **Please be aware:**
+
+- **Data logging:** By default, Cohere logs prompts and outputs on their SaaS platform (retained for 30 days)
+- **Training opt-out:** You can disable data usage for training in your [Cohere dashboard](https://dashboard.cohere.com/) under "Data Controls"
+- **Zero retention:** Enterprise customers can request zero data retention
+- **Cloud deployments:** If using Cohere via AWS/GCP/Azure, Cohere does not receive your data
+
+**For privacy-sensitive use cases**, consider these alternatives:
+
+1. **Local cross-encoder:** The system includes `CrossEncoderReranker` using `BAAI/bge-reranker-base` (runs locally, no external API)
+2. **Remove Cohere:** Don't set `COHERE_API_KEY` and the system falls back to local reranking
+3. **LLM-as-reranker:** Use a local/GDPR-compliant LLM for reranking
+
+See [Cohere's privacy policy](https://cohere.com/privacy) and [enterprise data commitments](https://cohere.com/enterprise-data-commitments) for details.
 
 ---
 
