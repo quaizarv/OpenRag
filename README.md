@@ -62,10 +62,12 @@ python scripts/run_multihop_eval.py
 | Benchmark | Queries Tested | Our Result | SOTA | Notes |
 |-----------|----------------|------------|------|-------|
 | **MultiHop-RAG** | 2,556 (full) | **72.89%** | ~70% | Beats RAPTOR baseline |
-| **SQuAD** | 90 (stratified) | **97.8%** | ~85-90% | Stratified across early/mid/late |
-| **CRAG** | 10 (sample) | **70%** | ~50-60% | API-augmented QA |
+| **SQuAD** | 200+ (ongoing) | **99.0%** | ~85-90% | Full benchmark running on EC2 |
+| **CRAG** | 10 (sample) | **70%** | ~50-60% | Per-query corpus test |
 
-> **Note on sampling:** SQuAD and CRAG used stratified sampling across different query ranges (early, middle, late) due to compute constraints. This ensures results are representative and not biased toward easier questions.
+> **Note on SQuAD:** Full 10,570-query benchmark running on EC2. After 200 queries: 99.0% Recall@10.
+
+> **Note on CRAG:** Tested 10 queries using each query's provided search results as corpus. Scaling requires per-query ingestion which is compute-intensive. CRAG is designed for API-augmented RAG, not static document retrieval.
 
 ### Ablation Study
 
