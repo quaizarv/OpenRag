@@ -700,6 +700,10 @@ class UltimateRAGServer:
         processing_config = ProcessingConfig()
         self.processor = DocumentProcessor(processing_config)
 
+        # Sync processor's deduplication hashes with existing tree content
+        # This prevents duplicate nodes when the server restarts
+        self._sync_processor_hashes()
+
         # Initialize teaching (uses default tree from forest)
         default_tree = None
         if self.forest.default_tree:
@@ -734,6 +738,31 @@ class UltimateRAGServer:
         )
 
         logger.info("Ultimate RAG server initialized")
+
+    def _sync_processor_hashes(self):
+        """
+        Sync processor's deduplication hashes with existing tree content.
+        
+        This ensures that when the server restarts and loads an existing tree,
+        the processor won't create duplicate nodes for content that already exists.
+        """
+        import hashlib
+        
+        if not self.forest or not self.processor:
+            return
+        
+        hash_count = 0
+        for tree in self.forest.trees.values():
+            for node in tree.all_nodes.values():
+                text = getattr(node, 'text', '')
+                if text:
+                    # Use same hash method as DocumentProcessor
+                    content_hash = hashlib.md5(text.encode()).hexdigest()
+                    self.processor._seen_hashes.add(content_hash)
+                    hash_count += 1
+        
+        if hash_count > 0:
+            logger.info(f"Synced {hash_count} content hashes from existing trees")
 
     def create_app(self) -> FastAPI:
         """Create FastAPI application."""

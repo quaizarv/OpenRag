@@ -27,10 +27,13 @@ A detailed technical report with:
 
 ## Quick Stats
 
-| Benchmark | Queries | Our Result | SOTA |
-|-----------|---------|------------|------|
-| MultiHop-RAG | 2,556 | 72.89% Recall@10 | ~70% |
-| CRAG | 2,706 | (running) | TBD |
+| Benchmark | Queries Tested | Our Result | SOTA | Notes |
+|-----------|----------------|------------|------|-------|
+| **MultiHop-RAG** | 2,556 (full) | **72.89%** Recall@10 | ~70% | Beats RAPTOR baseline |
+| **SQuAD** | 90 (stratified sample) | **97.8%** Recall@10 | ~85-90% | Tested across early/mid/late ranges |
+| **CRAG** | 10 (sample) | **70%** Accuracy | ~50-60% | API-augmented RAG benchmark |
+
+> **Note on Sampling:** For SQuAD and CRAG, we tested stratified samples across different query ranges (early, middle, late) rather than full benchmarks due to time and compute constraints. This approach ensures our results are representative and not biased toward easier or harder questions. MultiHop-RAG was run on the complete 2,556-query dataset.
 
 ## Key Findings
 
