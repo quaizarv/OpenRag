@@ -18,7 +18,7 @@ A complete RAG system that achieves **72.89% Recall@10** on MultiHop-RAG, surpas
 
 ```bash
 # Clone the repo
-git clone https://github.com/YOUR_USERNAME/rag_benchmarking.git
+git clone https://github.com/incidentfox/OpenRag.git
 cd rag_benchmarking
 
 # Create virtual environment
@@ -256,7 +256,7 @@ If you use this code, please cite:
   title = {Multi-Strategy RAG for Multi-Hop Question Answering},
   author = {Anonymous},
   year = {2026},
-  url = {https://github.com/YOUR_USERNAME/rag_benchmarking}
+  url = {https://github.com/incidentfox/OpenRag}
 }
 ```
 
