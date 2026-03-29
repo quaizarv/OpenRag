@@ -43,6 +43,7 @@ def main():
     parser.add_argument("--max-queries", type=int, default=None, help="Max queries to evaluate (for testing)")
     parser.add_argument("--skip-ingest", action="store_true", help="Skip corpus ingestion")
     parser.add_argument("--concurrency", type=int, default=10, help="Number of concurrent workers (default: 10)")
+    parser.add_argument("--timeout", type=int, default=120, help="Request timeout in seconds (default: 120)")
     parser.add_argument("--output", default="multihop_results.json", help="Output file for results")
     
     # RAPTOR hierarchy building options
@@ -83,6 +84,7 @@ def main():
         api_url=args.api_url,
         default_top_k=args.top_k,
         retrieval_mode="standard",
+        timeout=args.timeout,
     )
 
     # Health check

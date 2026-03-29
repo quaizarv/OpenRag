@@ -1,9 +1,12 @@
 # raptor/__init__.py
 from .cluster_tree_builder import ClusterTreeBuilder, ClusterTreeConfig
 from .EmbeddingModels import (
+    EMBEDDING_DIMENSIONS,
     BaseEmbeddingModel,
     OpenAIEmbeddingModel,
+    Qwen3EmbeddingModel,
     SBertEmbeddingModel,
+    get_embedding_model,
 )
 
 # FAISS is optional in many environments (it can require native deps like swig).

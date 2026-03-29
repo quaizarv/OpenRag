@@ -452,8 +452,8 @@ class TreePersistence:
             knowledge_type=KnowledgeType(data.get("knowledge_type", "factual")),
             tags=data.get("tags", []),
             num_layers=data.get("num_layers", 0),
-            embedding_model=data.get("embedding_model", "OpenAI"),
-            embedding_dimension=data.get("embedding_dimension", 1536),
+            embedding_model=data.get("embedding_model", "Qwen3"),
+            embedding_dimension=data.get("embedding_dimension", 1024),
             version=data.get("version", "1.0.0"),
         )
 

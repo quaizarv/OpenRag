@@ -37,7 +37,7 @@ class TreeBuildConfig:
     reduction_dimension: int = 6  # UMAP output dimension
 
     # Embedding
-    embedding_model: str = "text-embedding-3-large"
+    embedding_model: str = "Qwen/Qwen3-Embedding-0.6B"
 
     # Caching (recommended for large corpora)
     cache_embeddings: bool = True
@@ -69,17 +69,15 @@ class RaptorTreeBuilder:
                 CachedEmbeddingModel,
                 EmbeddingCache,
             )
-            from knowledge_base.raptor.EmbeddingModels import OpenAIEmbeddingModel
+            from knowledge_base.raptor.EmbeddingModels import get_embedding_model
             from knowledge_base.raptor.SummarizationModels import (
                 CachedSummarizationModel,
                 GPT3TurboSummarizationModel,
             )
             from knowledge_base.raptor.summary_cache import SummaryCache
 
-            # Embedding model
-            self._embedding_model = OpenAIEmbeddingModel(
-                model=self.config.embedding_model
-            )
+            # Embedding model (env var EMBEDDING_MODEL overrides config)
+            self._embedding_model = get_embedding_model(self.config.embedding_model)
 
             if self.config.cache_embeddings:
                 cache = EmbeddingCache(f"{self.config.cache_path}/embeddings.sqlite")

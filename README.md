@@ -39,8 +39,7 @@ export COHERE_API_KEY="..."  # Optional but recommended for best performance
 ### 3. Start the RAG Server
 
 ```bash
-cd ultimate_rag
-python -m api.server
+cd ultimate_rag && python -m api.server
 ```
 
 Server runs at `http://localhost:8000`. Check health: `curl http://localhost:8000/health`
@@ -217,11 +216,42 @@ curl -X POST http://localhost:8000/persist/load \
 ### Environment Variables
 
 ```bash
-OPENAI_API_KEY=sk-...          # Required for embeddings
+OPENAI_API_KEY=sk-...          # Required only when EMBEDDING_MODEL=openai or openai-small
 COHERE_API_KEY=...             # Recommended for reranking (see privacy note below)
 RETRIEVAL_MODE=standard        # fast|standard|thorough
 DEFAULT_TOP_K=10               # Number of results
+EMBEDDING_MODEL=qwen3          # Embedding model selection (see below)
 ```
+
+### Embedding Models
+
+The embedding model is selected via the `EMBEDDING_MODEL` environment variable:
+
+| `EMBEDDING_MODEL` | Model | Dimensions | Requires |
+|-------------------|-------|-----------|---------|
+| `qwen3` (default) | Qwen/Qwen3-Embedding-0.6B | 1024 | `torch`, `transformers` (local) |
+| `openai` | text-embedding-3-large | 3072 | `OPENAI_API_KEY` |
+| `openai-small` | text-embedding-3-small | 1536 | `OPENAI_API_KEY` |
+| `sbert` | multi-qa-mpnet-base-cos-v1 | 768 | `sentence-transformers` (local) |
+| any HF model ID | loaded via `transformers` | varies | `torch`, `transformers` (local) |
+
+**Examples:**
+
+```bash
+# Default — Qwen3-Embedding-0.6B (local, no API key needed)
+cd ultimate_rag && python -m api.server
+
+# OpenAI embeddings
+cd ultimate_rag && EMBEDDING_MODEL=openai python -m api.server
+
+# Custom HuggingFace model (last-token pooling)
+cd ultimate_rag && EMBEDDING_MODEL=BAAI/bge-small-en-v1.5 python -m api.server
+
+# Custom HuggingFace model via sentence-transformers
+cd ultimate_rag && EMBEDDING_MODEL=BAAI/bge-small-en-v1.5 EMBEDDING_BACKEND=sbert python -m api.server
+```
+
+> **Note:** If you change the embedding model, delete any persisted trees and re-ingest your corpus — embedding vectors from different models are incompatible.
 
 ### Privacy Notice: Cohere Reranker
 
@@ -246,13 +276,14 @@ See [Cohere's privacy policy](https://cohere.com/privacy) and [enterprise data c
 
 | Component | Cost per Query |
 |-----------|----------------|
-| OpenAI embeddings | $0.000007 |
+| Qwen3 embeddings (default) | $0 (local) |
+| OpenAI embeddings (optional) | $0.000007 |
 | HyDE generation | $0.00018 |
 | Query decomposition | $0.00027 |
 | Cohere reranking | $0.002 |
-| **Total** | **~$0.0025** |
+| **Total (with Qwen3 + Cohere)** | **~$0.0022** |
 
-Full benchmark (2556 queries): **~$6**
+Full benchmark (2556 queries) with Cohere reranking: **~$5.60**
 
 ---
 

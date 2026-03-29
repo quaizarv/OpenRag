@@ -265,7 +265,18 @@ class UltimateRAGAdapter:
 
         else:
             # Standard flat batched ingestion (existing behavior)
-            for batch_start in range(0, len(documents), batch_size):
+            try:
+                from tqdm import tqdm
+                _iter = tqdm(
+                    range(0, len(documents), batch_size),
+                    desc="Ingesting",
+                    unit="batch",
+                    total=(len(documents) + batch_size - 1) // batch_size,
+                )
+            except ImportError:
+                _iter = range(0, len(documents), batch_size)
+
+            for batch_start in _iter:
                 batch_end = min(batch_start + batch_size, len(documents))
                 batch = documents[batch_start:batch_end]
 

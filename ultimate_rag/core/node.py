@@ -293,8 +293,8 @@ class KnowledgeTree:
     version: str = "1.0.0"
 
     # Configuration
-    embedding_model: str = "OpenAI"
-    embedding_dimension: int = 1536
+    embedding_model: str = "Qwen3"
+    embedding_dimension: int = 1024
 
     def add_node(self, node: KnowledgeNode) -> None:
         """Add a node to the tree."""

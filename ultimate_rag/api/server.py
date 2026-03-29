@@ -711,10 +711,10 @@ class UltimateRAGServer:
         # Initialize embedder for teaching interface
         embedder = None
         try:
-            from knowledge_base.raptor.EmbeddingModels import OpenAIEmbeddingModel
+            from knowledge_base.raptor.EmbeddingModels import get_embedding_model
 
-            embedder = OpenAIEmbeddingModel()
-            logger.info("Initialized OpenAI embedder for TeachingInterface")
+            embedder = get_embedding_model()
+            logger.info(f"Initialized embedder for TeachingInterface: {type(embedder).__name__}")
         except ImportError:
             logger.warning(
                 "OpenAI embedder not available, nodes will not have embeddings"
@@ -1095,10 +1095,10 @@ class UltimateRAGServer:
 
                 try:
                     from knowledge_base.raptor.EmbeddingModels import (
-                        OpenAIEmbeddingModel,
+                        get_embedding_model,
                     )
 
-                    embedding_model = OpenAIEmbeddingModel()
+                    embedding_model = get_embedding_model()
                     embeddings = embedding_model.create_embeddings_batch(texts)
                 except ImportError:
                     warnings.append("Batch embedding not available, using single calls")
@@ -1138,7 +1138,7 @@ class UltimateRAGServer:
                     )
 
                     if embeddings and i < len(embeddings):
-                        node.set_embedding("OpenAI", embeddings[i])
+                        node.set_embedding("Qwen3", embeddings[i])
 
                     tree.add_node(node)
                     nodes_created += 1
